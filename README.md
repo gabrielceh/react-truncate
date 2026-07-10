@@ -13,7 +13,7 @@ npm i @gabrielceh/react-truncate
 ## Basic Usage
 
 ```tsx
-import { TextTruncate } from "react-truncate";
+import { TextTruncate } from "@gabrielceh/react-truncate";
 
 function App() {
   return (
@@ -97,8 +97,8 @@ The expand and collapse controls are native `<button>` elements, keyboard access
 ## TypeScript Examples
 
 ```tsx
-import { TextTruncate } from "react-truncate";
-import type { TextElement, TextTruncateProps } from "react-truncate";
+import { TextTruncate } from "@gabrielceh/react-truncate";
+import type { TextElement, TextTruncateProps } from "@gabrielceh/react-truncate";
 
 function App() {
   return (
