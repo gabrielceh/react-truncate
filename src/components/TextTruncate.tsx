@@ -8,19 +8,7 @@ import {
 import type { CSSProperties } from "react";
 
 import type { TextTruncateProps } from "./types";
-
-const STYLES = `.text-truncate{display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}.text-truncate--expanded{display:block;overflow:visible}.text-truncate__button{display:inline;padding:0;border:none;background:none;color:inherit;cursor:pointer;font:inherit;text-decoration:underline;text-underline-offset:2px}`;
-
-let injected = false;
-
-function injectStyles() {
-  if (injected) return;
-  injected = true;
-
-  const style = document.createElement("style");
-  style.textContent = STYLES;
-  document.head.appendChild(style);
-}
+import "./TextTruncate.css";
 
 export function TextTruncate({
   text,
@@ -34,10 +22,6 @@ export function TextTruncate({
   const [isExpanded, setIsExpanded] = useState(false);
   const [isTruncated, setIsTruncated] = useState(false);
   const elementRef = useRef<HTMLElement>(null);
-
-  useLayoutEffect(() => {
-    injectStyles();
-  }, []);
 
   const checkTruncation = useCallback(() => {
     const el = elementRef.current;
