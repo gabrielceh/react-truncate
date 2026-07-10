@@ -7,7 +7,7 @@ Zero external dependencies. Compatible with React 18+.
 ## Installation
 
 ```bash
-npm install react-truncate
+npm i @gabrielceh/react-truncate
 ```
 
 ## Basic Usage

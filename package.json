@@ -1,6 +1,6 @@
 {
   "name": "@gabrielceh/react-truncate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A lightweight, typed React component for truncating text by number of lines, with expand/collapse support.",
   "type": "module",
   "main": "./lib/index.cjs",
@@ -11,14 +11,10 @@
       "import": "./lib/index.js",
       "require": "./lib/index.cjs",
       "types": "./lib/index.d.ts"
-    },
-    "./style.css": "./lib/react-truncate.css"
+    }
   },
   "files": [
     "lib"
-  ],
-  "sideEffects": [
-    "**/*.css"
   ],
   "scripts": {
     "dev": "vite",
