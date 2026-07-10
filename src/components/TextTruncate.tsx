@@ -9,17 +9,18 @@ import type { CSSProperties } from "react";
 
 import type { TextTruncateProps } from "./types";
 
-const buttonStyle: CSSProperties = {
-  display: "inline",
-  padding: 0,
-  border: "none",
-  background: "none",
-  color: "inherit",
-  cursor: "pointer",
-  font: "inherit",
-  textDecoration: "underline",
-  textUnderlineOffset: "2px",
-};
+const STYLES = `.text-truncate{display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}.text-truncate--expanded{display:block;overflow:visible}.text-truncate__button{display:inline;padding:0;border:none;background:none;color:inherit;cursor:pointer;font:inherit;text-decoration:underline;text-underline-offset:2px}`;
+
+let injected = false;
+
+function injectStyles() {
+  if (injected) return;
+  injected = true;
+
+  const style = document.createElement("style");
+  style.textContent = STYLES;
+  document.head.appendChild(style);
+}
 
 export function TextTruncate({
   text,
@@ -33,6 +34,10 @@ export function TextTruncate({
   const [isExpanded, setIsExpanded] = useState(false);
   const [isTruncated, setIsTruncated] = useState(false);
   const elementRef = useRef<HTMLElement>(null);
+
+  useLayoutEffect(() => {
+    injectStyles();
+  }, []);
 
   const checkTruncation = useCallback(() => {
     const el = elementRef.current;
@@ -56,14 +61,17 @@ export function TextTruncate({
     setIsExpanded((prev) => !prev);
   }, []);
 
-  const textStyle: CSSProperties = isExpanded
-    ? { display: "block", overflow: "visible" }
-    : {
-        display: "-webkit-box",
-        WebkitBoxOrient: "vertical",
-        overflow: "hidden",
-        WebkitLineClamp: lines,
-      };
+  const classNames = [
+    "text-truncate",
+    isExpanded ? "text-truncate--expanded" : "",
+    className ?? "",
+  ]
+    .filter(Boolean)
+    .join(" ") || undefined;
+
+  const style: CSSProperties = isExpanded
+    ? {}
+    : { WebkitLineClamp: lines };
 
   const showMore = !isExpanded && isTruncated && showMoreLabel;
   const showLess = isExpanded && showLessLabel;
@@ -74,15 +82,15 @@ export function TextTruncate({
         as,
         {
           ref: elementRef,
-          className,
-          style: textStyle,
+          className: classNames,
+          style,
         },
         text,
       )}
       {showMore && (
         <button
           type="button"
-          style={buttonStyle}
+          className="text-truncate__button"
           onClick={handleToggle}
         >
           {showMoreLabel}
@@ -91,7 +99,7 @@ export function TextTruncate({
       {showLess && (
         <button
           type="button"
-          style={buttonStyle}
+          className="text-truncate__button"
           onClick={handleToggle}
         >
           {showLessLabel}
