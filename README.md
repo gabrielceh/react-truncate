@@ -37,6 +37,10 @@ function App() {
 | `className`         | `string`                             | `undefined` | Custom CSS class                                   |
 | `showMoreLabel`     | `string`                             | `undefined` | Button text to expand content                      |
 | `showLessLabel`     | `string`                             | `undefined` | Button text to collapse content                    |
+| `labelPosition`     | `ShowPosition`                       | `"center"`  | Alignment of the show more/less button             |
+| `labelhasUnderline` | `boolean`                            | `false`     | Adds underline decoration to the button            |
+| `labelColor`        | `'inherit' \| string`                | `"inherit"` | Custom color for the button label                  |
+| `labelClassName`    | `string`                             | `undefined` | Custom CSS class for the button                    |
 | `textTruncateChild` | `React.ReactNode`                    | `undefined` | React element rendered at the end of the component |
 
 ### TextElement
@@ -47,6 +51,14 @@ type TextElement =
   | "small" | "em" | "b" | "i"
   | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 ```
+
+### ShowPosition
+
+```tsx
+type ShowPosition = 'center' | 'right' | 'left';
+```
+
+Used by the `labelPosition` prop to control the alignment of the expand/collapse button.
 
 ## Behavior
 
@@ -81,6 +93,83 @@ Show more
 ```
 Lorem ipsum dolor sit amet consectetur...
 Show less
+```
+
+## Label Customization
+
+The expand/collapse button supports several customization options for position, style, and appearance.
+
+### Position
+
+By default the button is centered. Use `labelPosition` to align it to the left, center, or right.
+
+```tsx
+<TextTruncate
+  text="Long text to truncate..."
+  lines={2}
+  showMoreLabel="Show more"
+  showLessLabel="Show less"
+  labelPosition="right"
+/>
+```
+
+### Underline
+
+Add `labelhasUnderline` to underline the button text.
+
+```tsx
+<TextTruncate
+  text="Long text to truncate..."
+  lines={2}
+  showMoreLabel="Show more"
+  showLessLabel="Show less"
+  labelhasUnderline
+/>
+```
+
+### Custom Color
+
+Use `labelColor` to change the button text color. Accepts any CSS color string or `'inherit'`.
+
+```tsx
+<TextTruncate
+  text="Long text to truncate..."
+  lines={2}
+  showMoreLabel="Show more"
+  showLessLabel="Show less"
+  labelColor="#e63946"
+/>
+```
+
+### Custom Class
+
+Use `labelClassName` to apply your own CSS class to the button.
+
+```tsx
+<TextTruncate
+  text="Long text to truncate..."
+  lines={2}
+  showMoreLabel="Show more"
+  showLessLabel="Show less"
+  labelClassName="my-custom-button"
+/>
+```
+
+### Combined Example
+
+All label props can be used together.
+
+```tsx
+<TextTruncate
+  text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum, quibusdam, quae, quos quas voluptates quod quia voluptatem exercitationem."
+  lines={3}
+  showMoreLabel="Show more"
+  showLessLabel="Show less"
+  labelPosition="right"
+  labelhasUnderline
+  labelColor="#e63946"
+  labelClassName="read-more"
+/>
 ```
 
 ## Overflow Detection
@@ -128,6 +217,17 @@ function App() {
         showMoreLabel="Read more"
         showLessLabel="Show less"
         textTruncateChild={<span> — 5 min read</span>}
+      />
+
+      <TextTruncate
+        text="Customized label with position, underline, and color."
+        lines={2}
+        showMoreLabel="Show more"
+        showLessLabel="Show less"
+        labelPosition="right"
+        labelhasUnderline
+        labelColor="#2563eb"
+        labelClassName="custom-label"
       />
     </>
   );
