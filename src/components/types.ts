@@ -15,6 +15,8 @@ export type TextElement =
   | "h5"
   | "h6";
 
+export type ShowPosition = 'center' | 'right' | 'left';
+
 export interface TextTruncateProps {
   text: string;
   lines?: number;
@@ -22,5 +24,7 @@ export interface TextTruncateProps {
   className?: string;
   showMoreLabel?: string;
   showLessLabel?: string;
+  labelPosition?: ShowPosition;
   textTruncateChild?: React.ReactNode;
 }
+

@@ -13,10 +13,11 @@ import "./TextTruncate.css";
 export function TextTruncate({
   text,
   lines = 1,
-  as = "p",
+  as = 'p',
   className,
   showMoreLabel,
   showLessLabel,
+  labelPosition = 'center',
   textTruncateChild,
 }: TextTruncateProps) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -45,50 +46,64 @@ export function TextTruncate({
     setIsExpanded((prev) => !prev);
   }, []);
 
-  const classNames = [
-    "text-truncate",
-    isExpanded ? "text-truncate--expanded" : "",
-    className ?? "",
+  const classNames =
+    [
+      'text-truncate',
+      isExpanded ? 'text-truncate--expanded' : '',
+      className ?? '',
+    ]
+      .filter(Boolean)
+      .join(' ') || undefined;
+
+  const classNamesButton = [
+    'text-truncate__button',
+    labelPosition === 'center'
+      ? 'text-truncate__button--center'
+      : labelPosition === 'right'
+        ? 'text-truncate__button--right'
+        : labelPosition === 'left'
+          ? 'text-truncate__button--left'
+          : '',
   ]
     .filter(Boolean)
-    .join(" ") || undefined;
+    .join(' ');
 
-  const style: CSSProperties = isExpanded
-    ? {}
-    : { WebkitLineClamp: lines };
+  const style: CSSProperties = isExpanded ? {} : { WebkitLineClamp: lines };
 
   const showMore = !isExpanded && isTruncated && showMoreLabel;
   const showLess = isExpanded && showLessLabel;
 
   return (
     <>
-      {createElement(
-        as,
-        {
-          ref: elementRef,
-          className: classNames,
-          style,
-        },
-        text,
-      )}
-      {showMore && (
-        <button
-          type="button"
-          className="text-truncate__button"
-          onClick={handleToggle}
-        >
-          {showMoreLabel}
-        </button>
-      )}
-      {showLess && (
-        <button
-          type="button"
-          className="text-truncate__button"
-          onClick={handleToggle}
-        >
-          {showLessLabel}
-        </button>
-      )}
+      <div className='text--container'>
+        {createElement(
+          as,
+          {
+            ref: elementRef,
+            className: classNames,
+            style,
+          },
+          text,
+        )}
+        {showMore && (
+          <button
+            type='button'
+            className={classNamesButton}
+            onClick={handleToggle}
+          >
+            {showMoreLabel}
+          </button>
+        )}
+        {showLess && (
+          <button
+            type='button'
+            className={classNamesButton}
+            onClick={handleToggle}
+          >
+            {showLessLabel}
+          </button>
+        )}
+      </div>
       {textTruncateChild}
     </>
   );

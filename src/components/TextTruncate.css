@@ -1,3 +1,8 @@
+.text--container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
 .text-truncate {
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -19,4 +24,16 @@
   font: inherit;
   text-decoration: underline;
   text-underline-offset: 2px;
+}
+
+.text-truncate__button--center {
+  align-self: center;
+}
+
+.text-truncate__button--right {
+  align-self: flex-end;
+}
+
+.text-truncate__button--left {
+  align-self: flex-start;
 }
