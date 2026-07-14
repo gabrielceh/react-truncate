@@ -22,7 +22,6 @@ function App() {
         <TextTruncate
           text='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatum, quibusdam, quae, quos quas voluptates quod quia voluptatem exercitationem.'
           showMoreLabel='Show more'
-          labelPosition='right'
         />
       </section>
 
@@ -42,6 +41,9 @@ function App() {
           lines={3}
           showMoreLabel='Show more'
           showLessLabel='Show less'
+          labelPosition='right'
+          labelhasUnderline
+          labelColor='red'
         />
       </section>
 

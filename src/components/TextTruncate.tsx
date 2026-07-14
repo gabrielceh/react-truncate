@@ -19,6 +19,9 @@ export function TextTruncate({
   showLessLabel,
   labelPosition = 'center',
   textTruncateChild,
+  labelhasUnderline = false,
+  labelColor = 'inherit',
+  labelClassName,
 }: TextTruncateProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isTruncated, setIsTruncated] = useState(false);
@@ -56,6 +59,7 @@ export function TextTruncate({
       .join(' ') || undefined;
 
   const classNamesButton = [
+    labelClassName ?? '',
     'text-truncate__button',
     labelPosition === 'center'
       ? 'text-truncate__button--center'
@@ -64,11 +68,14 @@ export function TextTruncate({
         : labelPosition === 'left'
           ? 'text-truncate__button--left'
           : '',
+    labelhasUnderline ? 'text-truncate__button--underline' : '',
   ]
     .filter(Boolean)
     .join(' ');
 
   const style: CSSProperties = isExpanded ? {} : { WebkitLineClamp: lines };
+
+  const styleLabel: CSSProperties = { color: labelColor };
 
   const showMore = !isExpanded && isTruncated && showMoreLabel;
   const showLess = isExpanded && showLessLabel;
@@ -90,6 +97,7 @@ export function TextTruncate({
             type='button'
             className={classNamesButton}
             onClick={handleToggle}
+            style={styleLabel}
           >
             {showMoreLabel}
           </button>
@@ -99,6 +107,7 @@ export function TextTruncate({
             type='button'
             className={classNamesButton}
             onClick={handleToggle}
+            style={styleLabel}
           >
             {showLessLabel}
           </button>

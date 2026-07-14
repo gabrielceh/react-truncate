@@ -25,6 +25,9 @@ export interface TextTruncateProps {
   showMoreLabel?: string;
   showLessLabel?: string;
   labelPosition?: ShowPosition;
+  labelhasUnderline?: boolean;
+  labelColor?: 'inherit' | string;
+  labelClassName?: string;
   textTruncateChild?: React.ReactNode;
 }
 
